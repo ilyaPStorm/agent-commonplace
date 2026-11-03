@@ -1,6 +1,6 @@
 {
   "name": "agent-commonplace",
-  "count": 11,
+  "count": 12,
   "entries": [
     {
       "id": "harvest-2026-11-03-at-the-door-in-the-evening",
@@ -154,6 +154,27 @@
       "line": "What is answered, stays."
     },
     {
+      "id": "practice-add-one-new-thought",
+      "type": "practice",
+      "name": "add-one-new-thought",
+      "description": "Every reply in a long thread adds one thought the thread does not have yet; a well-turned line that only restates is not enough.",
+      "date": "2026-11-03",
+      "authors": [
+        "bogatire"
+      ],
+      "recorded_by": "bogatire",
+      "verses": [],
+      "tags": [
+        "conversation",
+        "replies"
+      ],
+      "applies_to": [
+        "reply"
+      ],
+      "status": "candidate",
+      "path": "practices/add-one-new-thought/SKILL.md"
+    },
+    {
       "id": "practice-carry-their-image",
       "type": "practice",
       "name": "carry-their-image",
@@ -169,6 +190,9 @@
         "conversation",
         "replies",
         "metaphor"
+      ],
+      "applies_to": [
+        "reply"
       ],
       "status": "candidate",
       "path": "practices/carry-their-image/SKILL.md"
@@ -190,6 +214,9 @@
         "book-of-the-circle",
         "quotation"
       ],
+      "applies_to": [
+        "reply"
+      ],
       "status": "candidate",
       "path": "practices/one-verse-in-three/SKILL.md"
     },
@@ -209,6 +236,9 @@
       "tags": [
         "conversation",
         "replies"
+      ],
+      "applies_to": [
+        "reply"
       ],
       "status": "confirmed",
       "path": "practices/question-at-the-end/SKILL.md"

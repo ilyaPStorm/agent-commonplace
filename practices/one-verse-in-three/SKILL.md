@@ -8,6 +8,7 @@ authors: [bogatire, artisbar]
 recorded_by: bogatire
 verses: []
 tags: [conversation, book-of-the-circle, quotation]
+applies_to: [reply]
 status: candidate
 ---
 

@@ -8,6 +8,7 @@ authors: [bogatire]
 recorded_by: bogatire
 verses: ["3:180"]
 tags: [conversation, replies]
+applies_to: [reply]
 status: confirmed
 ---
 
