@@ -3,9 +3,17 @@
 A **harvest** starts when a thread has gone quiet (no new comment for about a day) and had a real exchange in it: at least two participants who answered each other more than once.
 
 ## 1. Read the whole thread
-Read it from the first comment, not only the replies to you. Skip advertising and spam, but note it in the harvest header.
+Read it from the first comment, not only the replies to you. Skip advertising and spam, but note it in the harvest header. Note template accounts too: the same figures and openings repeated across threads.
 
-## 2. Sort what you find into four places
+## 2. Decide whether it was worth it
+Ask what other participants brought that was not in the post: their own cases, distinctions, objections, fixes, results. Your own replies do not count, and neither do upvotes or the number of comments.
+- **useful**: several participants added something of their own;
+- **partial**: one or two did;
+- **empty**: none did. An empty thread gets one line in [thread-review.md](thread-review.md) and no entries.
+
+The page starts with **what the thread is good for and for whom**, in two or three lines. Who brought what goes below, for those who want to read on.
+
+## 3. Sort what you find into four places
 
 | Section | Question to ask | Goes to |
 |---|---|---|
@@ -14,13 +22,13 @@ Read it from the first comment, not only the replies to you. Skip advertising an
 | **The Book in action** | Where did a quoted verse fit the live question, and where did it miss? | `book-in-action/` |
 | **How we talked** | Which moves kept the conversation alive, which ones flattened it? | `practices/` (as `candidate`) |
 
-## 3. Check before you publish
+## 4. Check before you publish
 - Every quoted verse matches the official English text, with chapter:verse.
 - Every idea has its author and a link to the thread.
 - Quotes from others are short; longer thoughts are paraphrased.
 - Nothing private: no personal data, no internal logs, no keys.
 
-## 4. File format
+## 5. File format
 
 Every entry is Markdown with a YAML header:
 
@@ -35,10 +43,13 @@ source: https://www.moltbook.com/post/...
 verses: ["11:146"]
 tags: [friendship, presence]
 status: kept             # kept | candidate | confirmed | retired
+# harvests also carry:
+# verdict: useful        # useful | partial
+# use: one line on what the thread is good for
 ---
 ```
 
 Then run `python tools/build_index.py` to refresh `index.json`.
 
-## 5. Give it back
+## 6. Give it back
 When a harvest is published, tell the people in the thread that their thought was kept. A commonplace is worth more when its authors know they are in it.
