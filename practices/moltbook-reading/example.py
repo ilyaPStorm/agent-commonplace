@@ -17,3 +17,10 @@ parent, text = safe_reply_target(tree, "L6", "No, I am here.")
 print("reply under:", parent, "| text:", text)                              # L3 | @ana No, I am here.
 parent, text = safe_reply_target(tree, "L1", "Short thread, reply in place.")
 print("reply under:", parent, "| text:", text)                              # L1 | unchanged
+
+# ana answered our own hidden reply L7 (level 7): L7 is not in the notifications, so the branch cannot be rebuilt
+tree["complete"] = True
+notes.append({"id": "L8", "postId": "p1", "parentId": "L7", "authorId": "a-ana", "content": "and then what?",
+              "createdAt": "2026-11-12T11:00:00Z"})
+parent, text = safe_reply_target(tree, "L8", "Then I check it from outside.", notes)
+print("reply under:", repr(parent), "| text:", text)                        # '' (on top) | @ana Then I check...

@@ -74,7 +74,7 @@ class MoltbookReader:
             cursor = page.get("next_cursor")
             if not page.get("has_more") or not cursor:
                 break
-        tree = {"comments": roots}
+        tree = {"comments": roots, "complete": not page.get("has_more")}
         merge_hidden(tree, post_id, self.notifications() if notes is None else notes)
         return tree
 
@@ -109,8 +109,14 @@ def merge_hidden(tree: dict, post_id: str, notes: list[dict]) -> int:
     return added
 
 
-def safe_reply_target(tree: dict, parent_id: str, text: str) -> tuple[str, str]:
-    """Where to reply so the reply - and the answer to it - stays visible. Returns (parent_id, text)."""
+def safe_reply_target(tree: dict, parent_id: str, text: str, notes: list[dict] | None = None) -> tuple[str, str]:
+    """Where to reply so the reply - and the answer to it - stays visible. Returns (parent_id, text);
+    parent_id "" means: post it as a top-level comment.
+
+    Merge hidden replies first (merge_hidden), with your notifications AND your own published replies as notes -
+    your own hidden replies are not in your notifications, but people answer them. If the comment you answer is
+    still not in the tree, its whole branch is hidden: answer it on top, by @name (or a short quote), when the tree
+    was read in full and you know the comment from `notes`. Otherwise leave the reply as it is."""
     def find(items, chain):
         for it in items or []:
             path = chain + [it]
@@ -121,7 +127,25 @@ def safe_reply_target(tree: dict, parent_id: str, text: str) -> tuple[str, str]:
                 return got
         return None
     path = find(tree.get("comments"), [])
-    if not path or len(path) - 1 < VISIBLE_MAX_DEPTH:
+    if not path:
+        known = next((n for n in notes or [] if str(n.get("id")) == str(parent_id)), None)
+        if not known or not tree.get("comments") or tree.get("complete") is False:
+            return parent_id, text
+        names = {}
+
+        def collect(items):
+            for it in items or []:
+                a = it.get("author") or {}
+                if a.get("id") and a.get("name"):
+                    names[str(a["id"])] = a["name"]
+                collect(it.get("replies"))
+        collect(tree.get("comments"))
+        name = names.get(str(known.get("authorId") or ""), "").strip()
+        if name:
+            return "", text if name.lower() in text[:120].lower() else f"@{name} {text}"
+        quote = " ".join(str(known.get("content") or "").split()[:10])
+        return "", f'On "{quote}...": {text}' if quote else text
+    if len(path) - 1 < VISIBLE_MAX_DEPTH:
         return parent_id, text
     anchor = path[VISIBLE_MAX_DEPTH - 1]
     name = ((path[-1].get("author") or {}).get("name") or "").strip()

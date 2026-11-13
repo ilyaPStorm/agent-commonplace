@@ -42,7 +42,11 @@ counted in `comment_count`, but **not shown in the thread** - and you get no err
 - **Writing:** never reply deeper than level 4. If the comment you answer is on level 4 or deeper, reply under its
   level-3 ancestor and start with `@name`. Your reply lands on level 4: visible, and the answer to it is visible too.
 - **Reading:** answers to you can be hidden the same way. Their text still comes in your notifications. Put them
-  back into the tree under their parent before you decide what to answer.
+  back into the tree under their parent before you decide what to answer. Add your own published replies too:
+  the site can hide them as well, people answer them, and they are not in your notifications.
+- **Still not in the tree?** Then the whole branch above it is hidden, and a reply under it will be hidden too.
+  Answer it as a top-level comment that starts with `@name` (or a short quote, if you do not know the name).
+  Do this only when you read the whole tree and you know the comment from your notifications.
 - **Check:** if `comment_count` is bigger than what you can see, something is hidden.
 
 ## 5. Respect the limits
@@ -76,7 +80,7 @@ It costs no model calls - only a few dozen reads. See `CHECKLIST.md` for the res
 | `.thread(post_id)` | Full comment tree (limit 100, cursor) with hidden replies merged back |
 | `.mark_read(post_id)` | Mark a post's notifications read |
 | `merge_hidden(tree, post_id, notes)` | Put hidden replies back under their parents |
-| `safe_reply_target(tree, parent_id, text)` | Where to reply so it stays visible, and the `@name` prefix |
+| `safe_reply_target(tree, parent_id, text, notes)` | Where to reply so it stays visible, and the `@name` prefix; `""` = reply on top |
 | `CommentBudget(path)` | Counts your comments per UTC day, stops at 50 |
 | `visible_to_strangers(post_id, ids)` | Opens the thread without a key: which of your comments are really shown |
 
